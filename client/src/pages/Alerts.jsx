@@ -78,37 +78,37 @@ const AlertsPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-space-black p-6">
+    <div className="min-h-screen bg-gov-light p-6">
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="mb-8"
         >
-          <h1 className="text-2xl font-display font-bold text-white">Alert Center</h1>
-          <p className="text-gray-500 mt-1">Monitor and manage disaster alerts across all districts</p>
+          <h1 className="text-2xl font-bold text-gov-blue">Alert Center</h1>
+          <p className="text-gray-600 mt-1">Monitor and manage disaster alerts across all districts</p>
         </motion.div>
 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
           {[
-            { label: 'Active Alerts', value: stats.active, color: 'text-space-alert' },
-            { label: 'Resolved Today', value: stats.resolvedToday, color: 'text-space-ndvi' },
-            { label: 'Critical', value: stats.critical, color: 'text-space-alert' },
-            { label: 'Avg Response', value: stats.avgResponse, color: 'text-space-cyan' },
+            { label: 'Active Alerts', value: stats.active, color: 'text-red-600' },
+            { label: 'Resolved Today', value: stats.resolvedToday, color: 'text-green-600' },
+            { label: 'Critical', value: stats.critical, color: 'text-red-600' },
+            { label: 'Avg Response', value: stats.avgResponse, color: 'text-gov-blue' },
           ].map(({ label, value, color }) => (
-            <div key={label} className="glass-card p-4">
-              <div className="text-sm text-gray-500">{label}</div>
-              <div className={`text-2xl font-bold font-display ${color}`}>{value}</div>
+            <div key={label} className="gov-card p-4">
+              <div className="text-sm text-gray-600">{label}</div>
+              <div className={`text-2xl font-bold ${color}`}>{value}</div>
             </div>
           ))}
         </div>
 
-        <div className="glass-card p-6">
+        <div className="gov-card p-6">
           <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
             <div className="flex items-center space-x-4">
               <button
                 onClick={() => setShowFilters(!showFilters)}
-                className="flex items-center space-x-2 px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white transition-colors"
+                className="flex items-center space-x-2 px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-700 transition-colors"
               >
                 <Filter className="w-4 h-4" />
                 <span>Filters</span>
@@ -117,7 +117,7 @@ const AlertsPage = () => {
               <div className="flex items-center space-x-2">
                 <select
                   onChange={(e) => setFilters({ ...filters, type: e.target.value })}
-                  className="px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white text-sm focus:border-space-cyan outline-none"
+                  className="px-3 py-2 rounded-lg bg-white border border-gray-300 text-gray-800 text-sm focus:border-gov-blue outline-none"
                 >
                   <option value="">All Types</option>
                   <option value="Flood">Flood</option>
@@ -127,7 +127,7 @@ const AlertsPage = () => {
 
                 <select
                   onChange={(e) => setFilters({ ...filters, severity: e.target.value })}
-                  className="px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white text-sm focus:border-space-cyan outline-none"
+                  className="px-3 py-2 rounded-lg bg-white border border-gray-300 text-gray-800 text-sm focus:border-gov-blue outline-none"
                 >
                   <option value="">All Severity</option>
                   <option value="Critical">Critical</option>
@@ -138,7 +138,7 @@ const AlertsPage = () => {
 
                 <select
                   onChange={(e) => setFilters({ ...filters, status: e.target.value })}
-                  className="px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white text-sm focus:border-space-cyan outline-none"
+                  className="px-3 py-2 rounded-lg bg-white border border-gray-300 text-gray-800 text-sm focus:border-gov-blue outline-none"
                 >
                   <option value="">All Status</option>
                   <option value="Active">Active</option>
@@ -150,14 +150,14 @@ const AlertsPage = () => {
             <div className="flex items-center space-x-2">
               <button
                 onClick={handleBulkResolve}
-                className="flex items-center space-x-2 px-4 py-2 rounded-lg bg-space-ndvi/20 text-space-ndvi hover:bg-space-ndvi/30 transition-colors"
+                className="flex items-center space-x-2 px-4 py-2 rounded-lg bg-green-100 text-green-700 hover:bg-green-200 transition-colors"
               >
                 <CheckCircle className="w-4 h-4" />
                 <span>Mark Resolved</span>
               </button>
               <button
                 onClick={handleExportCSV}
-                className="flex items-center space-x-2 px-4 py-2 rounded-lg bg-space-cyan/20 text-space-cyan hover:bg-space-cyan/30 transition-colors"
+                className="flex items-center space-x-2 px-4 py-2 rounded-lg bg-blue-100 text-gov-blue hover:bg-blue-200 transition-colors"
               >
                 <Download className="w-4 h-4" />
                 <span>Export CSV</span>
@@ -179,13 +179,13 @@ const AlertsPage = () => {
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="glass-card p-6 max-w-lg w-full mx-4 max-h-[80vh] overflow-y-auto"
+            className="gov-card p-6 max-w-lg w-full mx-4 max-h-[80vh] overflow-y-auto"
           >
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold text-white">Alert Details</h3>
+              <h3 className="text-lg font-semibold text-gov-blue">Alert Details</h3>
               <button
                 onClick={() => setSelectedAlert(null)}
-                className="p-2 rounded-lg hover:bg-white/10 text-gray-400 hover:text-white"
+                className="p-2 rounded-lg hover:bg-gray-100 text-gray-600 hover:text-gray-800"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -195,23 +195,23 @@ const AlertsPage = () => {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <div className="text-xs text-gray-500">District</div>
-                  <div className="text-white font-medium">{selectedAlert.district}</div>
+                  <div className="text-gray-800 font-medium">{selectedAlert.district}</div>
                 </div>
                 <div>
                   <div className="text-xs text-gray-500">State</div>
-                  <div className="text-white font-medium">{selectedAlert.state}</div>
+                  <div className="text-gray-800 font-medium">{selectedAlert.state}</div>
                 </div>
                 <div>
                   <div className="text-xs text-gray-500">Type</div>
-                  <div className="text-white font-medium">{selectedAlert.alertType}</div>
+                  <div className="text-gray-800 font-medium">{selectedAlert.alertType}</div>
                 </div>
                 <div>
                   <div className="text-xs text-gray-500">Severity</div>
                   <div className={`font-medium ${
-                    selectedAlert.severity === 'Critical' ? 'text-space-alert' :
-                    selectedAlert.severity === 'High' ? 'text-orange-400' :
-                    selectedAlert.severity === 'Medium' ? 'text-yellow-400' :
-                    'text-space-ndvi'
+                    selectedAlert.severity === 'Critical' ? 'text-red-600' :
+                    selectedAlert.severity === 'High' ? 'text-orange-500' :
+                    selectedAlert.severity === 'Medium' ? 'text-yellow-500' :
+                    'text-green-600'
                   }`}>
                     {selectedAlert.severity}
                   </div>
@@ -226,9 +226,9 @@ const AlertsPage = () => {
                 />
               </div>
 
-              <div className="p-3 rounded-lg bg-white/5">
+              <div className="p-3 rounded-lg bg-gray-50">
                 <div className="text-xs text-gray-500 mb-1">Message</div>
-                <div className="text-sm text-white">{selectedAlert.message || 'No message'}</div>
+                <div className="text-sm text-gray-800">{selectedAlert.message || 'No message'}</div>
               </div>
             </div>
           </motion.div>

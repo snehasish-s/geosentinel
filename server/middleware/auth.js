@@ -8,11 +8,18 @@ const protect = asyncHandler(async (req, res, next) => {
   if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
     try {
       token = req.headers.authorization.split(' ')[1];
-      const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      req.user = await User.findById(decoded.id).select('-password');
-      next();
+      const decoded = jwt.verify(token, process.env.JWT_SECRET || 'geosentinel_jwt_secret_key_2026');
+      
+      if (global.mockDB) {
+        req.user = { _id: decoded.id, name: 'Admin User', email: 'admin@geosentinel.com' };
+        next();
+      } else {
+        req.user = await User.findById(decoded.id).select('-password');
+        next();
+      }
     } catch (error) {
       res.status(401).json({ success: false, message: 'Not authorized' });
+      return;
     }
   }
 

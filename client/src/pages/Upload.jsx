@@ -61,15 +61,15 @@ const UploadPage = () => {
   const doneCount = uploads.filter(u => u.status === 'Done').length;
 
   return (
-    <div className="min-h-screen bg-space-black p-6">
+    <div className="min-h-screen bg-gov-light p-6">
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="mb-8"
         >
-          <h1 className="text-2xl font-display font-bold text-white">Satellite Data Upload Center</h1>
-          <p className="text-gray-500 mt-1">Upload and process multisource raster and vector satellite data</p>
+          <h1 className="text-2xl font-bold text-gov-blue">Satellite Data Upload Center</h1>
+          <p className="text-gray-600 mt-1">Upload and process multisource raster and vector satellite data</p>
         </motion.div>
 
         <div className="grid grid-cols-12 gap-6">
@@ -79,30 +79,30 @@ const UploadPage = () => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.1 }}
             >
-              <div className="glass-card p-6 mb-6">
-                <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-4">Upload Files</h2>
+              <div className="gov-card p-6 mb-6">
+                <h2 className="text-sm font-semibold text-gray-600 uppercase tracking-wider mb-4">Upload Files</h2>
                 <UploadZone onUploadComplete={fetchUploads} />
               </div>
 
-              <div className="glass-card p-6">
+              <div className="gov-card p-6">
                 <div className="flex items-center justify-between mb-4">
-                  <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-wider">Quick Stats</h2>
+                  <h2 className="text-sm font-semibold text-gray-600 uppercase tracking-wider">Quick Stats</h2>
                   <button
                     onClick={handleExportReport}
-                    className="flex items-center space-x-2 text-xs text-space-cyan hover:text-space-cyan/80"
+                    className="flex items-center space-x-2 text-xs text-gov-blue hover:text-gov-blue/80"
                   >
                     <Download className="w-4 h-4" />
                     <span>Export Report</span>
                   </button>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
-                  <div className="p-4 rounded-xl bg-white/5">
-                    <div className="text-2xl font-bold text-space-cyan">{processingCount}</div>
-                    <div className="text-xs text-gray-500">Processing</div>
+                  <div className="p-4 rounded-xl bg-blue-50">
+                    <div className="text-2xl font-bold text-gov-blue">{processingCount}</div>
+                    <div className="text-xs text-gray-600">Processing</div>
                   </div>
-                  <div className="p-4 rounded-xl bg-white/5">
-                    <div className="text-2xl font-bold text-space-ndvi">{doneCount}</div>
-                    <div className="text-xs text-gray-500">Completed</div>
+                  <div className="p-4 rounded-xl bg-green-50">
+                    <div className="text-2xl font-bold text-green-600">{doneCount}</div>
+                    <div className="text-xs text-gray-600">Completed</div>
                   </div>
                 </div>
               </div>
@@ -115,12 +115,12 @@ const UploadPage = () => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.2 }}
             >
-              <div className="glass-card p-6">
-                <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-4">Processing Queue</h2>
+              <div className="gov-card p-6">
+                <h2 className="text-sm font-semibold text-gray-600 uppercase tracking-wider mb-4">Processing Queue</h2>
 
                 {loading ? (
                   <div className="flex items-center justify-center h-48">
-                    <Loader className="w-8 h-8 text-space-cyan animate-spin" />
+                    <Loader className="w-8 h-8 text-gov-blue animate-spin" />
                   </div>
                 ) : uploads.length === 0 ? (
                   <div className="text-center py-12 text-gray-500">
@@ -130,47 +130,47 @@ const UploadPage = () => {
                   <div className="overflow-x-auto">
                     <table className="w-full">
                       <thead>
-                        <tr className="border-b border-white/10">
-                          <th className="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase">Name</th>
-                          <th className="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase">Type</th>
-                          <th className="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase">Size</th>
-                          <th className="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase">Status</th>
-                          <th className="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase">Uploaded</th>
-                          <th className="px-4 py-3 text-right text-xs font-semibold text-gray-400 uppercase">Actions</th>
+                        <tr className="border-b border-gray-200">
+                          <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Name</th>
+                          <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Type</th>
+                          <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Size</th>
+                          <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Status</th>
+                          <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Uploaded</th>
+                          <th className="px-4 py-3 text-right text-xs font-semibold text-gray-600 uppercase">Actions</th>
                         </tr>
                       </thead>
-                      <tbody className="divide-y divide-white/5">
+                      <tbody className="divide-y divide-gray-100">
                         {uploads.map((upload) => (
-                          <tr key={upload._id} className="hover:bg-white/5">
+                          <tr key={upload._id} className="hover:bg-gray-50">
                             <td className="px-4 py-3">
                               <div className="flex items-center space-x-3">
-                                <File className="w-5 h-5 text-space-cyan" />
-                                <span className="text-sm text-white truncate max-w-[150px]">{upload.originalName}</span>
+                                <File className="w-5 h-5 text-gov-blue" />
+                                <span className="text-sm text-gray-800 truncate max-w-[150px]">{upload.originalName}</span>
                               </div>
                             </td>
-                            <td className="px-4 py-3 text-xs text-gray-400 uppercase">
+                            <td className="px-4 py-3 text-xs text-gray-600 uppercase">
                               {upload.mimetype?.split('/')[1] || upload.originalName?.split('.').pop()}
                             </td>
-                            <td className="px-4 py-3 text-xs text-gray-400">
+                            <td className="px-4 py-3 text-xs text-gray-600">
                               {formatSize(upload.size)}
                             </td>
                             <td className="px-4 py-3">
                               <span className={`text-xs px-2 py-1 rounded-full ${
-                                upload.status === 'Done' ? 'bg-space-ndvi/20 text-space-ndvi' :
-                                upload.status === 'Processing' ? 'bg-yellow-500/20 text-yellow-400' :
-                                upload.status === 'Failed' ? 'bg-space-alert/20 text-space-alert' :
-                                'bg-gray-500/20 text-gray-400'
+                                upload.status === 'Done' ? 'bg-green-100 text-green-700' :
+                                upload.status === 'Processing' ? 'bg-yellow-100 text-yellow-700' :
+                                upload.status === 'Failed' ? 'bg-red-100 text-red-700' :
+                                'bg-gray-100 text-gray-600'
                               }`}>
                                 {upload.status}
                               </span>
                             </td>
-                            <td className="px-4 py-3 text-xs text-gray-400">
+                            <td className="px-4 py-3 text-xs text-gray-600">
                               {format(new Date(upload.uploadedAt), 'dd MMM HH:mm')}
                             </td>
                             <td className="px-4 py-3">
                               <button
                                 onClick={() => handleDelete(upload._id)}
-                                className="p-1.5 rounded-lg hover:bg-space-alert/20 text-gray-400 hover:text-space-alert transition-colors"
+                                className="p-1.5 rounded-lg hover:bg-red-50 text-gray-400 hover:text-red-600 transition-colors"
                               >
                                 <Trash2 className="w-4 h-4" />
                               </button>

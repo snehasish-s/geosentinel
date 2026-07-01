@@ -1,9 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Search, Layers, X } from 'lucide-react';
 import MapView from '../components/MapView/MapView';
 import { useDistricts } from '../hooks/useNDVI';
-import { AlertTriangle } from 'lucide-react';
 
 const MapPage = () => {
   const { districts, loading } = useDistricts();
@@ -17,22 +16,22 @@ const MapPage = () => {
   );
 
   const riskColors = {
-    Critical: 'text-space-alert',
-    High: 'text-orange-400',
-    Medium: 'text-yellow-400',
-    Low: 'text-space-ndvi',
+    Critical: 'text-red-600',
+    High: 'text-orange-500',
+    Medium: 'text-yellow-500',
+    Low: 'text-green-600',
   };
 
   return (
-    <div className="min-h-screen bg-space-black flex">
+    <div className="min-h-screen bg-gov-light flex">
       <div className="flex-1 p-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="mb-6"
         >
-          <h1 className="text-2xl font-display font-bold text-white">Interactive Map View</h1>
-          <p className="text-gray-500 mt-1">Explore district risk levels and satellite data overlay</p>
+          <h1 className="text-2xl font-bold text-gov-blue">Interactive Map View</h1>
+          <p className="text-gray-600 mt-1">Explore district risk levels and satellite data overlay</p>
         </motion.div>
 
         <div className="h-[calc(100vh-200px)]">
@@ -45,23 +44,23 @@ const MapPage = () => {
         </div>
       </div>
 
-      <div className="w-80 bg-space-navy/50 border-l border-white/10 p-6 overflow-y-auto">
+      <div className="w-80 bg-white border-l border-gray-200 p-6 overflow-y-auto">
         <div className="mb-6">
-          <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-3">Search Districts</h3>
+          <h3 className="text-sm font-semibold text-gray-600 uppercase tracking-wider mb-3">Search Districts</h3>
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search by name or state..."
-              className="w-full pl-10 pr-4 py-2 rounded-lg bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:border-space-cyan outline-none"
+              className="w-full pl-10 pr-4 py-2 rounded-lg bg-gray-50 border border-gray-300 text-gray-800 placeholder-gray-400 focus:border-gov-blue outline-none"
             />
           </div>
         </div>
 
         <div className="mb-6">
-          <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-3">Layer Controls</h3>
+          <h3 className="text-sm font-semibold text-gray-600 uppercase tracking-wider mb-3">Layer Controls</h3>
           <div className="space-y-2">
             {['satellite', 'ndvi', 'flood'].map(layer => (
               <label key={layer} className="flex items-center space-x-3 cursor-pointer">
@@ -75,9 +74,9 @@ const MapPage = () => {
                       setActiveLayers(activeLayers.filter(l => l !== layer));
                     }
                   }}
-                  className="w-4 h-4 rounded border-white/20 bg-white/5 text-space-cyan focus:ring-space-cyan"
+                  className="w-4 h-4 rounded border-gray-300 bg-gray-50 text-gov-blue focus:ring-gov-blue"
                 />
-                <span className="text-sm text-gray-300 capitalize">{layer} Overlay</span>
+                <span className="text-sm text-gray-700 capitalize">{layer} Overlay</span>
               </label>
             ))}
           </div>
@@ -87,13 +86,13 @@ const MapPage = () => {
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="mb-6 glass-card p-4"
+            className="mb-6 gov-card p-4"
           >
             <div className="flex items-center justify-between mb-3">
-              <h3 className="font-semibold text-white">{selectedDistrict.name}</h3>
+              <h3 className="font-semibold text-gov-blue">{selectedDistrict.name}</h3>
               <button
                 onClick={() => setSelectedDistrict(null)}
-                className="p-1 rounded hover:bg-white/10 text-gray-400 hover:text-white"
+                className="p-1 rounded hover:bg-gray-100 text-gray-500 hover:text-gray-700"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -101,7 +100,7 @@ const MapPage = () => {
             <div className="space-y-2 text-sm">
               <div className="flex justify-between">
                 <span className="text-gray-500">State</span>
-                <span className="text-white">{selectedDistrict.state}</span>
+                <span className="text-gray-800">{selectedDistrict.state}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-500">Risk Level</span>
@@ -111,15 +110,15 @@ const MapPage = () => {
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-500">Last NDVI</span>
-                <span className="text-white">{selectedDistrict.lastNDVI?.toFixed(3) || '-'}</span>
+                <span className="text-gray-800">{selectedDistrict.lastNDVI?.toFixed(3) || '-'}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-500">Water Extent</span>
-                <span className="text-white">{selectedDistrict.lastWaterExtent?.toFixed(2) || '-'} km²</span>
+                <span className="text-gray-800">{selectedDistrict.lastWaterExtent?.toFixed(2) || '-'} km²</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-500">Active Alerts</span>
-                <span className={`font-medium ${selectedDistrict.activeAlerts > 0 ? 'text-space-alert' : 'text-space-ndvi'}`}>
+                <span className={`font-medium ${selectedDistrict.activeAlerts > 0 ? 'text-red-600' : 'text-green-600'}`}>
                   {selectedDistrict.activeAlerts || 0}
                 </span>
               </div>
@@ -128,7 +127,7 @@ const MapPage = () => {
         )}
 
         <div>
-          <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-3">All Districts</h3>
+          <h3 className="text-sm font-semibold text-gray-600 uppercase tracking-wider mb-3">All Districts</h3>
           <div className="space-y-1 max-h-96 overflow-y-auto">
             {filteredDistricts.map((district) => (
               <button
@@ -136,8 +135,8 @@ const MapPage = () => {
                 onClick={() => setSelectedDistrict(district)}
                 className={`w-full text-left px-3 py-2 rounded-lg transition-colors ${
                   selectedDistrict?._id === district._id
-                    ? 'bg-space-cyan/20 text-space-cyan'
-                    : 'hover:bg-white/5 text-gray-300'
+                    ? 'bg-blue-100 text-gov-blue'
+                    : 'hover:bg-gray-100 text-gray-700'
                 }`}
               >
                 <div className="flex items-center justify-between">
