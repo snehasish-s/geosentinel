@@ -4,24 +4,27 @@ import { BrowserRouter } from 'react-router-dom'
 import { Toaster } from 'react-hot-toast'
 import App from './App'
 import { AuthProvider } from './context/AuthContext'
+import { LanguageProvider } from './context/LanguageContext'
 import './index.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
-      <AuthProvider>
-        <App />
-        <Toaster 
-          position="top-right"
-          toastOptions={{
-            style: {
-              background: '#0D2137',
-              color: '#00E5FF',
-              border: '1px solid rgba(0, 229, 255, 0.3)',
-            },
-          }}
-        />
-      </AuthProvider>
+      <LanguageProvider>
+        <AuthProvider>
+          <App />
+          <Toaster 
+            position="top-right"
+            toastOptions={{
+              style: {
+                background: '#1e3a8a',
+                color: '#ffffff',
+                border: '2px solid #FF9933',
+              },
+            }}
+          />
+        </AuthProvider>
+      </LanguageProvider>
     </BrowserRouter>
   </React.StrictMode>,
 )
